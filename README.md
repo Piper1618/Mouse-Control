@@ -19,3 +19,7 @@ Source Name: Enter the name of the source to be controlled.
 Offsets: The mouse's position is offset by this amount. Negative values effectively move the origin point of the source being controlled. If you want to use the mouse's position on a monitor other than the main monitor, you'll also need to subtract the relevant monitor's position.
 
 Scale: Mouse movements will be multiplied by this scale before being applied to the source. This is applied after the offsets are added. For example, if your monitor is 1080p and your OBS canvas is 720p, you'll need to scale down the motion to 0.67.
+
+# Known issues
+
+Occasionally, the source will snap to position (0, 0) for one frame. I've confirmed that pynput is still reading the correct mouse position on these frames, so I don't know what OBS thinks it's doing.
