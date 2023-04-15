@@ -23,6 +23,8 @@ offset_x        = 0
 offset_y        = 0
 listener        = None
 pos             = obs.vec2()
+pos_x           = 0
+pos_y           = 0
 
 
 # ------------------------------------------------------------
@@ -62,19 +64,31 @@ def initialize():
 	# obs_scene_from_source is used to extract ¿cast? the scene from its source.
 
 def on_mouse_move(x, y):
-	global scene_item
 	global scale
 	global offset_x
 	global offset_y
-	global pos
+	global pos_x
+	global pos_y
 
-	if scene_item is not None and obs.obs_sceneitem_visible(scene_item):
-		obs.vec2_set(pos, (x + offset_x) * scale, (y + offset_y) * scale)
-		obs.obs_sceneitem_set_pos(scene_item, pos)
+	pos_x = round((x + offset_x) * scale)
+	pos_y = round((y + offset_y) * scale)
+
+def stringify_pos(pos):
+	return "(" + str(pos.x) + ", " + str(pos.y) + ")"
 
 # ------------------------------------------------------------
 # -- Built-in functions
 # ------------------------------------------------------------
+
+def script_tick(delta):
+	global scene_item
+	global pos
+	global pos_x
+	global pos_y
+
+	if scene_item is not None and obs.obs_sceneitem_visible(scene_item):
+		obs.vec2_set(pos, pos_x, pos_y)
+		obs.obs_sceneitem_set_pos(scene_item, pos)
 
 def script_description():
 	return "Make a source move by copying mouse movement."
