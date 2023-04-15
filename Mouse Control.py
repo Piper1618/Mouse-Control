@@ -14,6 +14,7 @@
 
 import obspython as obs
 from pynput import mouse as Mouse
+import time
 
 scene_item      = None
 scene_name      = ""
@@ -23,6 +24,9 @@ offset_x        = 0
 offset_y        = 0
 listener        = None
 pos             = obs.vec2()
+
+current_time    = 0
+running_log     = ""
 
 
 # ------------------------------------------------------------
@@ -72,9 +76,30 @@ def on_mouse_move(x, y):
 		obs.vec2_set(pos, (x + offset_x) * scale, (y + offset_y) * scale)
 		obs.obs_sceneitem_set_pos(scene_item, pos)
 
+		position_check = obs.vect2()
+		obs.obs_sceneitem_get_pos(scene_item, position_check)
+
+		if abs(position_check[0]) < 10 and abs(position_check[1]) < 10:
+			print("Found scene_item at " + stringify_pos(position_check) + "while pos is " + stringify_pos(pos))
+		if position_check[0] != pos[0] or position_check[1] != pos[1]:
+			print("Found improper movement. Found scene_item at " + stringify_pos(position_check) + ". Expected at " + stringify_pos(pos))
+
+		running_log += "m"
+
+def stringify_pos(pos):
+	return "(" + str(pos[0]) + ", " + str(pos[1]) + ")"
+
 # ------------------------------------------------------------
 # -- Built-in functions
 # ------------------------------------------------------------
+
+def script_tick():
+
+	if scene_item is not None and obs.obs_sceneitem_visible(scene_item):
+		running_log += "T"
+		if len(running_log) >= 100:
+			print(running_log)
+			running_log = ""
 
 def script_description():
 	return "Make a source move by copying mouse movement."
