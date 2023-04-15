@@ -75,7 +75,7 @@ def on_mouse_move(x, y):
 
 	if scene_item is not None and obs.obs_sceneitem_visible(scene_item):
 		obs.vec2_set(pos, (x + offset_x) * scale, (y + offset_y) * scale)
-		obs.obs_sceneitem_set_pos(scene_item, pos)
+		#obs.obs_sceneitem_set_pos(scene_item, pos)
 
 		position_check = obs.vec2()
 		obs.obs_sceneitem_get_pos(scene_item, position_check)
@@ -96,8 +96,13 @@ def stringify_pos(pos):
 
 def script_tick(delta):
 	global running_log
+	global scene_item
+	global pos
 
 	if scene_item is not None and obs.obs_sceneitem_visible(scene_item):
+
+		obs.obs_sceneitem_set_pos(scene_item, pos)
+
 		running_log += "T"
 		if len(running_log) >= 100:
 			print(running_log)
