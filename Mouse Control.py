@@ -101,6 +101,12 @@ def script_tick(delta):
 
 	if scene_item is not None and obs.obs_sceneitem_visible(scene_item):
 
+		position_check = obs.vec2()
+		obs.obs_sceneitem_get_pos(scene_item, position_check)
+
+		if abs(position_check.x) < 10 and abs(position_check.y) < 10:
+			print("Found scene_item at " + stringify_pos(position_check) + "while pos is " + stringify_pos(pos))
+
 		obs.obs_sceneitem_set_pos(scene_item, pos)
 
 		running_log += "T"
