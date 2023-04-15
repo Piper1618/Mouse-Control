@@ -71,6 +71,7 @@ def on_mouse_move(x, y):
 	global offset_x
 	global offset_y
 	global pos
+	global running_log
 
 	if scene_item is not None and obs.obs_sceneitem_visible(scene_item):
 		obs.vec2_set(pos, (x + offset_x) * scale, (y + offset_y) * scale)
@@ -93,7 +94,8 @@ def stringify_pos(pos):
 # -- Built-in functions
 # ------------------------------------------------------------
 
-def script_tick():
+def script_tick(delta):
+	global running_log
 
 	if scene_item is not None and obs.obs_sceneitem_visible(scene_item):
 		running_log += "T"
