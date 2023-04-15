@@ -106,6 +106,7 @@ def script_tick(delta):
 
 		if abs(position_check.x) < 10 and abs(position_check.y) < 10:
 			print("Found scene_item at " + stringify_pos(position_check) + "while pos is " + stringify_pos(pos))
+			print(running_log)
 
 		obs.obs_sceneitem_set_pos(scene_item, pos)
 
