@@ -14,7 +14,6 @@
 
 import obspython as obs
 from pynput import mouse as Mouse
-import time
 
 scene_item      = None
 scene_name      = ""
@@ -26,9 +25,6 @@ listener        = None
 pos             = obs.vec2()
 pos_x           = 0
 pos_y           = 0
-
-current_time    = 0
-running_log     = ""
 
 
 # ------------------------------------------------------------
@@ -68,30 +64,14 @@ def initialize():
 	# obs_scene_from_source is used to extract ¿cast? the scene from its source.
 
 def on_mouse_move(x, y):
-	global scene_item
 	global scale
 	global offset_x
 	global offset_y
-	global pos
-	global running_log
 	global pos_x
 	global pos_y
 
-	if scene_item is not None:
-		#obs.vec2_set(pos, (x + offset_x) * scale, (y + offset_y) * scale)
-		pos_x = (x + offset_x) * scale
-		pos_y = (y + offset_y) * scale
-		#obs.obs_sceneitem_set_pos(scene_item, pos)
-
-		position_check = obs.vec2()
-		obs.obs_sceneitem_get_pos(scene_item, position_check)
-
-		#if abs(position_check.x) < 10 and abs(position_check.y) < 10:
-		#	print("Found scene_item at " + stringify_pos(position_check) + "while pos is " + stringify_pos(pos))
-		#if position_check.x != pos.x or position_check.y != pos.y:
-		#	print("Found improper movement. Found scene_item at " + stringify_pos(position_check) + ". Expected at " + stringify_pos(pos))
-
-		running_log += "m"
+	pos_x = round((x + offset_x) * scale)
+	pos_y = round((y + offset_y) * scale)
 
 def stringify_pos(pos):
 	return "(" + str(pos.x) + ", " + str(pos.y) + ")"
@@ -101,28 +81,14 @@ def stringify_pos(pos):
 # ------------------------------------------------------------
 
 def script_tick(delta):
-	global running_log
 	global scene_item
 	global pos
 	global pos_x
 	global pos_y
 
 	if scene_item is not None and obs.obs_sceneitem_visible(scene_item):
-
-		position_check = obs.vec2()
-		obs.obs_sceneitem_get_pos(scene_item, position_check)
-
-		if abs(position_check.x) < 10 and abs(position_check.y) < 10:
-			print("Found scene_item at " + stringify_pos(position_check) + "while pos is " + stringify_pos(pos))
-			print(running_log)
-
 		obs.vec2_set(pos, pos_x, pos_y)
 		obs.obs_sceneitem_set_pos(scene_item, pos)
-
-		running_log += "T"
-		if len(running_log) >= 100:
-			#print(running_log)
-			running_log = ""
 
 def script_description():
 	return "Make a source move by copying mouse movement."
