@@ -80,10 +80,10 @@ def on_mouse_move(x, y):
 		position_check = obs.vec2()
 		obs.obs_sceneitem_get_pos(scene_item, position_check)
 
-		if abs(position_check.x) < 10 and abs(position_check.y) < 10:
-			print("Found scene_item at " + stringify_pos(position_check) + "while pos is " + stringify_pos(pos))
-		if position_check.x != pos.x or position_check.y != pos.y:
-			print("Found improper movement. Found scene_item at " + stringify_pos(position_check) + ". Expected at " + stringify_pos(pos))
+		#if abs(position_check.x) < 10 and abs(position_check.y) < 10:
+		#	print("Found scene_item at " + stringify_pos(position_check) + "while pos is " + stringify_pos(pos))
+		#if position_check.x != pos.x or position_check.y != pos.y:
+		#	print("Found improper movement. Found scene_item at " + stringify_pos(position_check) + ". Expected at " + stringify_pos(pos))
 
 		running_log += "m"
 
@@ -105,7 +105,7 @@ def script_tick(delta):
 
 		running_log += "T"
 		if len(running_log) >= 100:
-			print(running_log)
+			#print(running_log)
 			running_log = ""
 
 def script_description():
