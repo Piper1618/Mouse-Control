@@ -77,18 +77,18 @@ def on_mouse_move(x, y):
 		obs.vec2_set(pos, (x + offset_x) * scale, (y + offset_y) * scale)
 		obs.obs_sceneitem_set_pos(scene_item, pos)
 
-		position_check = obs.vect2()
+		position_check = obs.vec2()
 		obs.obs_sceneitem_get_pos(scene_item, position_check)
 
-		if abs(position_check[0]) < 10 and abs(position_check[1]) < 10:
+		if abs(position_check.x) < 10 and abs(position_check.y) < 10:
 			print("Found scene_item at " + stringify_pos(position_check) + "while pos is " + stringify_pos(pos))
-		if position_check[0] != pos[0] or position_check[1] != pos[1]:
+		if position_check.x != pos.x or position_check.y != pos.y:
 			print("Found improper movement. Found scene_item at " + stringify_pos(position_check) + ". Expected at " + stringify_pos(pos))
 
 		running_log += "m"
 
 def stringify_pos(pos):
-	return "(" + str(pos[0]) + ", " + str(pos[1]) + ")"
+	return "(" + str(pos.x) + ", " + str(pos.y) + ")"
 
 # ------------------------------------------------------------
 # -- Built-in functions
