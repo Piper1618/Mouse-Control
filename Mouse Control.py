@@ -24,6 +24,8 @@ offset_x        = 0
 offset_y        = 0
 listener        = None
 pos             = obs.vec2()
+pos_x           = 0
+pos_y           = 0
 
 current_time    = 0
 running_log     = ""
@@ -72,9 +74,13 @@ def on_mouse_move(x, y):
 	global offset_y
 	global pos
 	global running_log
+	global pos_x
+	global pos_y
 
-	if scene_item is not None and obs.obs_sceneitem_visible(scene_item):
-		obs.vec2_set(pos, (x + offset_x) * scale, (y + offset_y) * scale)
+	if scene_item is not None:
+		#obs.vec2_set(pos, (x + offset_x) * scale, (y + offset_y) * scale)
+		pos_x = (x + offset_x) * scale
+		pos_y = (y + offset_y) * scale
 		#obs.obs_sceneitem_set_pos(scene_item, pos)
 
 		position_check = obs.vec2()
@@ -98,6 +104,8 @@ def script_tick(delta):
 	global running_log
 	global scene_item
 	global pos
+	global pos_x
+	global pos_y
 
 	if scene_item is not None and obs.obs_sceneitem_visible(scene_item):
 
@@ -108,6 +116,7 @@ def script_tick(delta):
 			print("Found scene_item at " + stringify_pos(position_check) + "while pos is " + stringify_pos(pos))
 			print(running_log)
 
+		obs.vec2_set(pos, pos_x, pos_y)
 		obs.obs_sceneitem_set_pos(scene_item, pos)
 
 		running_log += "T"
