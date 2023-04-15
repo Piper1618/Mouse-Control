@@ -12,10 +12,10 @@ You'll also need to install pynput, which is used to read mouse positions: https
 
 # Settings
 
-Scene Name: Enter the name of the scene where the source can be found.
+**Scene Name:** Enter the name of the scene where the source can be found.
 
-Source Name: Enter the name of the source to be controlled.
+**Source Name:** Enter the name of the source to be controlled.
 
-Offsets: The mouse's position is offset by this amount. Negative values effectively move the origin point of the source being controlled. If you want to use the mouse's position on a monitor other than the main monitor, you'll also need to subtract the relevant monitor's position.
+**Offsets:** The mouse's position is offset by this amount. Negative values effectively move the origin point of the source being controlled. If you want to use the mouse's position on a monitor other than the main monitor, you'll also need to subtract the relevant monitor's position.
 
-Scale: Mouse movements will be multiplied by this scale before being applied to the source. This is applied after the offsets are added. For example, if your monitor is 1080p and your OBS canvas is 720p, you'll need to scale down the motion to 0.67.
+**Scale:** Mouse movements will be multiplied by this scale before being applied to the source. This is applied after the offsets are added. For example, if your monitor is 1080p and your OBS canvas is 720p, you'll need to scale down the motion to 0.67.
